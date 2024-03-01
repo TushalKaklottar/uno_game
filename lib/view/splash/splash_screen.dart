@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uno_game/utils/color.dart';
-import 'package:uno_game/view/home/home_page.dart';
+import '../auth/sing_in_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -28,8 +28,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     _animation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Future.delayed(const Duration(seconds: 30), () {
-          Get.off(const HomePage());
+        Future.delayed(const Duration(seconds: 1), () {
+          Get.off(const SingIn());
         });
       }
     });
@@ -57,12 +57,3 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     super.dispose();
   }
 }
-// Center(
-// child: ScaleTransition(
-// scale: _animation,
-// child: Image.asset(
-// "assets/images/uno.png",
-// height: 150,
-// ),
-// ),
-// ),

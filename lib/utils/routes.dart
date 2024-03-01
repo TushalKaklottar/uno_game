@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:uno_game/view/home/home_page.dart';
 import '../view/splash/splash_screen.dart';
 
 class Routes {
@@ -13,11 +12,11 @@ class Routes {
   static List<GetPage> routes = [
     GetPage(
         name: _splash,
-        page: () => SplashScreen(),
+        page: () => const SplashScreen(),
     ),
-    GetPage(
-        name: _home,
-        page: () => HomePage(),
-    ),
+    // GetPage(
+    //     name: _home,
+    //     page: () => const HomePage(),
+    // ),
   ];
 }

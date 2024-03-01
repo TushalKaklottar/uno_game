@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "30279156199",
+    "project_id": "uno-game-edb7e",
+    "storage_bucket": "uno-game-edb7e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30279156199:android:d3ee4bf89c5a0d8528fd42",
+        "android_client_info": {
+          "package_name": "com.example.uno_game"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhntE2dBc6_QZ1zNe4Z0RfL1pphGy2T5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
