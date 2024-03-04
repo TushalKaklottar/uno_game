@@ -14,9 +14,5 @@ class Routes {
         name: _splash,
         page: () => const SplashScreen(),
     ),
-    // GetPage(
-    //     name: _home,
-    //     page: () => const HomePage(),
-    // ),
   ];
 }

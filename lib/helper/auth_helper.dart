@@ -32,7 +32,7 @@ class AuthHelper {
     await googleSignIn.signOut();
   }
 
-
+    // Guest-user Anonymous
     loginAnonymously () async {
     try {
       await firebaseAuth.signInAnonymously();

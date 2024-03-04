@@ -1,36 +1,57 @@
 import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import '../../helper/auth_helper.dart';
-// import '../game_page/game_page.dart';
+import 'package:get/get.dart';
+import 'package:uno_game/utils/color.dart';
+import 'package:uno_game/utils/size.dart';
+import '../../helper/auth_helper.dart';
+import '../new_game/new_game_page.dart';
+
 
 class SingIn extends StatelessWidget {
   const SingIn({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Size size = AppSize.screenSize(context);
     return Scaffold(
-      body: SafeArea(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Container(
+        color: AppColor.yellow3,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
-                flex: 2,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/")
-                      )
-                    ),
-                  )
-              ),
-              Expanded(
-                  flex: 1,
-                  child: Column(
-
+              Image.asset("assets/images/welcome.png"),
+              SizedBox(height: size.height / 3),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                      child: Image.asset("assets/images/google.png",),
+                      onTap: () {
+                        AuthHelper.authHelper.singInGoogle().then((_) {
+                          Get.off(NewGame());
+                        }).catchError((error) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text(
+                                  "Failed to sign in with Google"
+                                  ),
+                              ),
+                          );
+                        });
+                      }
                   ),
+                  GestureDetector(
+                    child: Image.asset("assets/images/guest.png"),
+                    onTap: () {
+                      AuthHelper.authHelper.loginAnonymously();
+                      Get.off(NewGame());
+                    },
+                  ),
+                ],
               ),
             ],
-          )
+          ),
+        ),
       ),
     );
   }
@@ -38,34 +59,3 @@ class SingIn extends StatelessWidget {
 
 
 
-// body: Center(
-// child: Column(
-// mainAxisAlignment: MainAxisAlignment.center,
-// crossAxisAlignment: CrossAxisAlignment.center,
-// children: [
-// ElevatedButton(
-// onPressed: () {
-// AuthHelper.authHelper.singInGoogle().then((_) {
-// Get.off(const GamePage());
-// }).catchError((error) {
-// // print("Error signing in with Google: $error");
-// ScaffoldMessenger.of(context).showSnackBar(
-// const SnackBar(
-// content: Text("Failed to sign in with Google"),
-// ),
-// );
-// }
-// );
-// },
-// child: const Text("SingIn Google"),
-// ),
-// ElevatedButton(
-// onPressed: () {
-// AuthHelper.authHelper.loginAnonymously();
-// Get.off(const GamePage());
-// },
-// child: const Text("Guest User"),
-// ),
-// ],
-// ),
-// ),
