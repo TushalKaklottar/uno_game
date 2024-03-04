@@ -30,7 +30,7 @@ class UNO extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      initialRoute: Routes.splashRoute(),
+      initialRoute: Routes.gameRoute(),
       getPages: Routes.routes,
     );
   }
