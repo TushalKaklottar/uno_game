@@ -1,5 +1,6 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../view_model/player_widget_controller.dart';
 
 class PlayerWidget extends StatefulWidget {
   final String playerName;
@@ -13,30 +14,32 @@ class PlayerWidget extends StatefulWidget {
 }
 
 class _PlayerWidgetState extends State<PlayerWidget> {
-  int value = 10;
+  // int value = 10;
 
-  void changeValue() {
-    log("CALLED");
-    Future.delayed(
-      const Duration(seconds: 1),
-      () {
-        log("Value: $value");
-        setState(() {
-          value--;
-          if (value <= 0) {
-            value = 10;
-          }
-        });
-        changeValue();
-      },
-    );
-  }
+  final PlayerController playerController = Get.put(PlayerController());
 
-  @override
-  void initState() {
-    changeValue();
-    super.initState();
-  }
+  // void changeValue() {
+  //   log("CALLED");
+  //   Future.delayed(
+  //     const Duration(seconds: 1),
+  //     () {
+  //       log("Value: $value");
+  //       setState(() {
+  //         value--;
+  //         if (value <= 0) {
+  //           value = 10;
+  //         }
+  //       });
+  //       changeValue();
+  //     },
+  //   );
+  // }
+
+  // @override
+  // void initState() {
+  //   changeValue();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +62,21 @@ class _PlayerWidgetState extends State<PlayerWidget> {
           const SizedBox(
             height: 5,
           ),
-          Visibility(
-            visible: widget.isActive,
-            child: LinearProgressIndicator(
-              minHeight: 2,
-              value: value / 10,
-            ),
-          )
+          Obx(() => Visibility(
+              visible: widget.isActive,
+              child: LinearProgressIndicator(
+                backgroundColor: Colors.black,
+                valueColor: const AlwaysStoppedAnimation<Color>(Colors.red),
+                minHeight: 2.5,
+                value: playerController.value.value / 10,
+              )))
+          // Visibility(
+          //   visible: widget.isActive,
+          //   child: LinearProgressIndicator(
+          //     minHeight: 2,
+          //     value: value / 10,
+          //   ),
+          // ),
         ],
       ),
     );
