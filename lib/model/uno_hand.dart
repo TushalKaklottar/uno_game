@@ -13,22 +13,100 @@ class UnoHand {
   List<UnoCard> cards = [];
   bool isHidden;
   HandOrientation orientation;
-  UnoGame unoGame;
-  UnoPlayer player;
+  UnoGame game;
+  UnoPlayer? player;
 
   UnoHand(
-      {required this.player,
-      required this.unoGame,
+      {required this.cards,
+      required this.game,
       this.isHidden = false,
       this.orientation = HandOrientation.horizontal}) {
-    this.cards = this.cards.map((card) {
+    cards = cards.map((card) {
       card.hand = this;
       return card;
     }).toList();
+    reorderCards();
   }
+
+  void reorderCards() {
+    List<CardColor> myColors = cards.map((c) => c.color).toSet().toList();
+    List<UnoCard> orderedCards = [];
+    myColors.forEach((_color) {
+      List<UnoCard> _coloredCards =
+          cards.where((c) => c.color == _color).toList();
+      _coloredCards.sort(
+          (card1, card2) => card1.symbol.index.compareTo(card2.symbol.index));
+      orderedCards.addAll(_coloredCards);
+    });
+    cards = orderedCards;
+  }
+
+  UnoCard? drawCard(UnoCard card) {
+    if (cards.contains(card)) {
+      cards.remove(card);
+      reorderCards();
+      return card;
+    }
+    return null;
+  }
+
+  void addCard(UnoCard card) {
+    card.hand = this;
+    card.isHidden = isHidden;
+    cards.add(card);
+    reorderCards();
+  }
+
+  List<UnoCard> suitableCards(UnoCard card) {
+    return cards.where((c) => card.canAccept(c)).toList();
+  }
+
+  CardColor getMostColor() {
+    var _colors = {};
+    cards.forEach((c) {
+      _colors[c.color] =
+          !_colors.containsKey(c.color) ? 1 : (_colors[c.color] + 1);
+    });
+    var _actualColors = _colors.keys.toList();
+    var _suitableColors =
+        _actualColors.where((c) => c != CardColor.colorless).toList();
+    if (_suitableColors.isNotEmpty) {
+      _suitableColors.shuffle();
+      return _suitableColors.first;
+    } else {
+      var _allColors = CardColor.values;
+      _allColors.shuffle();
+      return _allColors.first;
+    }
+  }
+
+  UnoCard? playCardOrDraw(UnoCard card) {
+    List<UnoCard> suitable = suitableCards(card);
+    if (suitable.isNotEmpty) {
+      suitable.shuffle();
+      return drawCard(suitable.first);
+    }
+    return null;
+  }
+
+  bool isHorizontal() {
+    return orientation == HandOrientation.horizontal;
+  }
+
+  bool isVertical() {
+    return !isHorizontal();
+  }
+
+  void copyHand(UnoHand hand) {
+    emptyHand();
+    cards = hand.cards;
+  }
+
+  void emptyHand() => cards.clear();
+
   Widget toWidget() {
     return UnoHandWidget(
-      player: this.player,
+      player: player!,
     );
   }
 }
