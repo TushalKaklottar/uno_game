@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import '../../model/uno_card.dart';
 
@@ -7,8 +6,8 @@ class UnoCardWidget extends StatelessWidget {
   const UnoCardWidget({Key? key, required this.card}) : super(key: key);
 
   final UnoCard card;
-  final double cardHeight = 100;
-  final double cardWidth = 75;
+  final double cardHeight = 90;
+  final double cardWidth = 70;
 
   @override
   Widget build(BuildContext context) {

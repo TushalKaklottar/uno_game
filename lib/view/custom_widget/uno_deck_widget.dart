@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:uno_game/view/custom_widget/uno_card_widget.dart';
-
 import '../../model/uno_deck.dart';
 
 class UnoDeckWidget extends StatefulWidget {
-  const UnoDeckWidget({super.key, required this.deck});
+  const UnoDeckWidget({Key? key, required this.deck}) : super(key: key);
 
   final UnoDeck deck;
 

@@ -232,64 +232,61 @@ class _UnoGameWidgetState extends State<UnoGameWidget> {
 
   @override
   Widget build(BuildContext context) {
+    // Size size = AppSize.screenSize(context);
     game.calculateScores();
     return Stack(
       children: [
+        Positioned.fill(
+          child: Image.asset(
+            "assets/images/background.jpeg",
+            fit: BoxFit.cover,
+          ),
+        ),
         Positioned(
           top: 0,
           left: 0,
           bottom: 0,
           right: 0,
-          child: Image.asset("assets/images/background.jpeg"),
-        ),
-        Positioned(
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
-            child: Scaffold(
-              backgroundColor: Colors.transparent,
-              body: Padding(
-                padding: const EdgeInsets.only(top: 5),
-                child: SizedBox(
-                  height: 460,
-                  width: 880,
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          alignment: Alignment.topCenter,
-                          child: game.players[1].hand.toWidget(),
-                        ),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: Center(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.topCenter,
+                        child: game.players[1].hand.toWidget(),
                       ),
-                      Expanded(
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Expanded(
-                              child: game.players[2].hand.toWidget(),
-                            ),
-                            Expanded(
-                              child: playTable(context),
-                            ),
-                            Expanded(
-                              child: game.players[0].hand.toWidget(),
-                            ),
+                            game.players[2].hand.toWidget(),
+                            playTable(context),
+                            game.players[0].hand.toWidget(),
                           ],
                         ),
                       ),
-                      Expanded(
-                        child: Container(
-                          alignment: Alignment.topCenter,
-                          // color: Colors.cyan,
-                          child: game.players[3].hand.toWidget(),
-                        ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.topCenter,
+                        child: game.players[3].hand.toWidget(),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ))
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -304,7 +301,7 @@ class _UnoGameWidgetState extends State<UnoGameWidget> {
       setState(() {});
     }, builder: (context, list1, list2) {
       return SizedBox(
-        height: 120,
+        height: 90,
         width: 250,
         child: playArea(),
       );
@@ -340,27 +337,24 @@ class _UnoGameWidgetState extends State<UnoGameWidget> {
 
   Widget gameOverWidget() {
     return Container(
-      color: Colors.lightBlue[900],
-      child: Center(
-        child: Column(
-          children: [
-            const Text(
-              "Game Over!",
-              style: TextStyle(fontSize: 30, color: Colors.white),
+      color: Colors.red.shade400,
+      child: Column(
+        children: [
+          const Text(
+            "Game Over !",
+            style: TextStyle(
+              fontSize: 22,
             ),
-            FloatingActionButton(
-              child: const Text(
-                "Play again",
-                style: TextStyle(color: Colors.white),
-              ),
-              onPressed: () {
-                setState(() {
-                  game.playNextRound();
-                });
-              },
-            ),
-          ],
-        ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                game.playNextRound();
+              });
+            },
+            child: const Text("Play again"),
+          ),
+        ],
       ),
     );
   }
@@ -372,10 +366,6 @@ class _UnoGameWidgetState extends State<UnoGameWidget> {
         Expanded(
           child: Container(
             decoration: const BoxDecoration(
-              // borderRadius: BorderRadius.only(
-              //   topLeft: Radius.circular(10.0),
-              //   bottomLeft: Radius.circular(10.0),
-              // ),
               color: Colors.transparent,
             ),
             child: Center(
@@ -409,15 +399,17 @@ class _UnoGameWidgetState extends State<UnoGameWidget> {
         Expanded(
           child: Center(
             child: game.needsColorDecision()
-                ? Container(
-                    alignment: Alignment.center,
-                    child: Column(
-                      children: [
-                        colorChoice("", Colors.red, CardColor.red),
-                        colorChoice("", Colors.blue, CardColor.blue),
-                        colorChoice("", Colors.yellow, CardColor.yellow),
-                        colorChoice("", Colors.green, CardColor.green),
-                      ],
+                ? SingleChildScrollView(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: [
+                          colorChoice("", Colors.red, CardColor.red),
+                          colorChoice("", Colors.blue, CardColor.blue),
+                          colorChoice("", Colors.yellow, CardColor.yellow),
+                          colorChoice("", Colors.green, CardColor.green),
+                        ],
+                      ),
                     ),
                   )
                 : GestureDetector(

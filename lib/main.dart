@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:uno_game/utils/routes.dart';
 import 'firebase_options.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
@@ -15,8 +14,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(
-      const UNO());
+  runApp(const UNO());
 }
 
 class UNO extends StatelessWidget {
@@ -30,7 +28,7 @@ class UNO extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      initialRoute: Routes.gameRoute(),
+      initialRoute: Routes.splashRoute(),
       getPages: Routes.routes,
     );
   }
