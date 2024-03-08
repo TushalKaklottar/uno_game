@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:uno_game/model/uno_card.dart';
-import 'package:uno_game/model/uno_game.dart';
-import 'package:uno_game/model/uno_hand.dart';
+import 'package:uno_game/view_model/uno_card.dart';
+import 'package:uno_game/view_model/uno_game.dart';
+import 'package:uno_game/view_model/uno_hand.dart';
+
+import 'enum.dart';
 
 // Define the UnoDeck class.
 class UnoDeck {
@@ -73,7 +75,6 @@ class UnoDeck {
         createCardSet(CardColor.blue) +
         createCardSet(CardColor.green) +
         createCardSet(CardColor.yellow);
-
     shuffle();
   }
 

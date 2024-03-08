@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -12,28 +11,28 @@ class AuthHelper {
   GoogleSignIn googleSignIn = GoogleSignIn();
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-
-  Future<void> singInGoogle () async {
+  Future<void> singInGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
     //  Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
     // Create a new credential
-     final credential = GoogleAuthProvider.credential(
-       accessToken: googleAuth?.accessToken,
-       idToken: googleAuth?.idToken,
-     );
-     await firebaseAuth.signInWithCredential(credential);
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    await firebaseAuth.signInWithCredential(credential);
   }
 
   void singOutGoogle() async {
     await googleSignIn.signOut();
   }
 
-    // Guest-user Anonymous
-    loginAnonymously () async {
+  // Guest-user Anonymous
+  loginAnonymously() async {
     try {
       await firebaseAuth.signInAnonymously();
       return true;
@@ -46,5 +45,5 @@ class AuthHelper {
       }
       return false;
     }
-   }
+  }
 }

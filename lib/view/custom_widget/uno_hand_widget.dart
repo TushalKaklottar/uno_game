@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:uno_game/model/uno_player.dart';
-
-import '../../model/uno_card.dart';
-import '../../model/uno_hand.dart';
+import '../../view_model/uno_card.dart';
+import '../../view_model/uno_hand.dart';
+import '../../view_model/uno_player.dart';
 
 class UnoHandWidget extends StatefulWidget {
   const UnoHandWidget({Key? key, required this.player}) : super(key: key);

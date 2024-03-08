@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import '../../model/uno_card.dart';
+import '../../view_model/uno_card.dart';
 
 class UnoCardWidget extends StatelessWidget {
   const UnoCardWidget({Key? key, required this.card}) : super(key: key);

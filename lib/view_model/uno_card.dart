@@ -1,46 +1,10 @@
 // import file and package
+
 import 'package:flutter/cupertino.dart';
-import 'package:uno_game/model/uno_game.dart';
-import 'package:uno_game/model/uno_hand.dart';
+import 'package:uno_game/view_model/uno_game.dart';
+import 'package:uno_game/view_model/uno_hand.dart';
 import '../view/custom_widget/uno_card_widget.dart';
-
-// Define an enumeration representing the possible symbols or numbers on Uno cards.
-enum CardSymbol {
-  zero,
-  one,
-  two,
-  three,
-  four,
-  five,
-  six,
-  seven,
-  eight,
-  nine,
-  drawTwo,
-  drawFour,
-  skipTurn,
-  changeColor,
-  switchPlay,
-}
-
-// Define an enumeration called CardColor
-enum CardColor {
-  yellow,
-  red,
-  blue,
-  green,
-  colorless,
-}
-
-// Define an enumeration called CardAction
-enum CardAction {
-  none,
-  drawTwo,
-  drawFour,
-  skipTurn,
-  switchPlay,
-  changeColor,
-}
+import 'enum.dart';
 
 // Define the UnoCard class
 class UnoCard {
@@ -66,6 +30,7 @@ class UnoCard {
   }
 
   // Checks if the card is playable with another card.
+
   bool isPlayable(UnoCard otherCard) {
     if (symbol == CardSymbol.changeColor) return true;
     if (symbol == CardSymbol.drawFour) {

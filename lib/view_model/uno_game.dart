@@ -1,9 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:uno_game/model/uno_card.dart';
-import 'package:uno_game/model/uno_deck.dart';
-import 'package:uno_game/model/uno_hand.dart';
-import 'package:uno_game/model/uno_player.dart';
+import 'package:uno_game/view_model/uno_card.dart';
+import 'package:uno_game/view_model/uno_deck.dart';
+import 'package:uno_game/view_model/uno_hand.dart';
+import 'package:uno_game/view_model/uno_player.dart';
+import 'enum.dart';
 
 // Enum to represent the direction of turns in the game
 enum TurnDirection { clockwise, counterclockwise }

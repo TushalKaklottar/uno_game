@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:uno_game/model/uno_card.dart';
-import 'package:uno_game/model/uno_game.dart';
-import 'package:uno_game/model/uno_player.dart';
 import 'package:uno_game/view/custom_widget/uno_hand_widget.dart';
+import 'package:uno_game/view_model/uno_card.dart';
+import 'package:uno_game/view_model/uno_game.dart';
+import 'package:uno_game/view_model/uno_player.dart';
+
+import 'enum.dart';
 
 // Enum to represent the orientation of the hand
 enum HandOrientation {
