@@ -37,12 +37,25 @@ class _UnoGameWidgetState extends State<UnoGameWidget> {
     game.calculateScores();
     return Stack(
       children: [
-        Positioned.fill(
-          child: Image.asset(
-            "assets/images/background.jpeg",
-            fit: BoxFit.cover,
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.yellow.shade300, // Example starting color
+                Colors.orange.shade100, // Example ending color
+                Colors.orange.shade300,
+              ],
+            ),
           ),
         ),
+        // Positioned.fill(
+        //   child: Image.asset(
+        //     "assets/images/background.jpeg",
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
         Positioned(
           top: 0,
           left: 0,
