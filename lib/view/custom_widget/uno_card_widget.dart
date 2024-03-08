@@ -46,7 +46,7 @@ class UnoCardWidget extends StatelessWidget {
       height: cardHeight,
       width: cardWidth,
       child: Image.asset(
-        card.imageName(),
+        card.getImageName(),
       ),
     );
   }

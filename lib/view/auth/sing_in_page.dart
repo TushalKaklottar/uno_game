@@ -9,6 +9,7 @@ class SingIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Size size = AppSize.screenSize(context);
     return Scaffold(
       body: Container(
         color: AppColor.yellow3,

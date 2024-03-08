@@ -214,8 +214,8 @@ class UnoGameWidget extends StatefulWidget {
 }
 
 class _UnoGameWidgetState extends State<UnoGameWidget> {
+  // getx convert
   late UnoGame game;
-
   @override
   void initState() {
     super.initState();
@@ -298,7 +298,7 @@ class _UnoGameWidgetState extends State<UnoGameWidget> {
       if (game.playCard(card)) {
         game.playTurn(this);
       }
-      setState(() {});
+      setState(() {}); // get-x
     }, builder: (context, list1, list2) {
       return SizedBox(
         height: 90,
@@ -328,7 +328,7 @@ class _UnoGameWidgetState extends State<UnoGameWidget> {
             print("Human chose: $cardColor");
             game.setColor(cardColor);
             game.playTurn(this);
-            setState(() {});
+            setState(() {}); //get-x
           },
         ),
       ),
@@ -349,7 +349,7 @@ class _UnoGameWidgetState extends State<UnoGameWidget> {
           ElevatedButton(
             onPressed: () {
               setState(() {
-                game.playNextRound();
+                game.playNextRound(); // get-x
               });
             },
             child: const Text("Play again"),
@@ -385,8 +385,10 @@ class _UnoGameWidgetState extends State<UnoGameWidget> {
                 height: 30,
                 child: Transform(
                   alignment: Alignment.center,
-                  transform: Matrix4.rotationY(math.pi *
-                      (game.turnDirection == TurnDirection.clockwise ? 2 : 1)),
+                  transform: Matrix4.rotationY(
+                    math.pi *
+                        (game.turnDirection == TurnDirection.clockwise ? 2 : 1),
+                  ),
                   child: Image.asset(
                     "lib/static/images/rotation.png",
                     color: game.getPlayingColor(),
@@ -420,6 +422,7 @@ class _UnoGameWidgetState extends State<UnoGameWidget> {
                     onTap: () {
                       if (game.isHumanTurn()) {
                         setState(() {
+                          // get-x
                           game.drawCardFromDeck();
                           game.playTurn(this);
                         });

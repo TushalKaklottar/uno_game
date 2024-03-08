@@ -17,9 +17,10 @@ class Routes {
       page: () => const SplashScreen(),
     ),
     GetPage(
-        name: _game,
-        page: () => UnoGameWidget(
-              title: '',
-            ))
+      name: _game,
+      page: () => const UnoGameWidget(
+        title: '',
+      ),
+    ),
   ];
 }

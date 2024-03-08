@@ -1,23 +1,27 @@
 import 'package:uno_game/model/uno_hand.dart';
 
+// Represents a player in the Uno game.
 class UnoPlayer {
-  UnoHand hand;
-  late String name;
-  int roundScore = 0;
-  int gameScore = 0;
+  UnoHand hand; // Hand of cards held by the player
+  late String name; // Name of the player
+  int roundScore = 0; // Score of the player for the current round
+  int gameScore = 0; // Total score of the player across multiple rounds
 
+  // Constructs an instance of UnoPlayer with the given [hand] and [name].
   UnoPlayer({required this.hand, required this.name}) {
-    hand.player = this;
+    hand.player = this; // Assign this player to the hand
   }
 
+  // Calculates the score for the current round based on the cards in the hand.
   int calculateScore() {
     roundScore = 0;
     hand.cards.forEach((card) {
-      roundScore += card.value;
+      roundScore += card.value; // Add the value of each card to the round score
     });
     return roundScore;
   }
 
+  // Adds the round score to the total game score.
   void addToGameScore() {
     gameScore += roundScore;
   }

@@ -3,32 +3,38 @@ import 'package:uno_game/model/uno_card.dart';
 import 'package:uno_game/model/uno_game.dart';
 import 'package:uno_game/model/uno_hand.dart';
 
+// Define the UnoDeck class.
 class UnoDeck {
-  late UnoGame game;
-  List<UnoCard> cards = [];
+  late UnoGame game; // Game instance associated with the deck
+  List<UnoCard> cards = []; // List of UnoCards in the deck
 
+  // Method to draw a card from the deck
   UnoCard drawCard({bool hide = false}) {
-    UnoCard card = getLastCard();
-    card.isHidden = hide;
-    return card;
+    UnoCard card = getLastCard(); // Get the last card from the deck
+    card.isHidden = hide; // Set the card's hidden status based on the parameter
+    return card; // Return the drawn card
   }
 
+  // Method to get the last card from the deck
   UnoCard getLastCard() {
     return cards.removeLast();
   }
 
+// Method to set the game instance associated with the deck
   void setGame(UnoGame theGame) {
-    game = theGame;
+    game = theGame; // Set the game instance
     cards = cards.map((c) {
       c.game = game;
       return c;
     }).toList();
   }
 
-  void shuffle() => cards.shuffle();
+  // Method to shuffle the deck
+  void shuffle() => cards.shuffle(); // Shuffle the list of cards in the deck
 
+  // Method to deal a hand from the deck
   UnoHand dealHand({
-    int cardCount = 7,
+    int cardCount = 7, // Number of cards to deal (default is 7)
     bool isHidden = false,
     bool isHorizontal = true,
   }) {
@@ -38,8 +44,11 @@ class UnoDeck {
       hand.forEach((c) {
         c.game = game;
       });
+
+      // Determine the orientation of the hand
       var orientation =
           isHorizontal ? HandOrientation.horizontal : HandOrientation.vertical;
+      // Return a new UnoHand instance with the dealt cards
       return UnoHand(
         cards: hand,
         isHidden: isHidden,
@@ -47,15 +56,19 @@ class UnoDeck {
         game: game,
       );
     } else {
+      // If there are not enough cards in the deck, throw an exception
       throw Exception("Not enough cards in the deck");
     }
   }
 
+  // Constructor for UnoDeck class
   UnoDeck() {
     prepareDeck();
   }
 
+  // Method to prepare the deck by creating cards and shuffling them
   void prepareDeck() {
+    // Create cards for each color and add them to the deck
     cards = createCardSet(CardColor.red) +
         createCardSet(CardColor.blue) +
         createCardSet(CardColor.green) +
@@ -64,8 +77,11 @@ class UnoDeck {
     shuffle();
   }
 
+  // Method to create a set of cards for a specific color
   List<UnoCard> createCardSet(CardColor setColor) {
+    // Return a list of UnoCards for the specified color
     return [
+      // Define UnoCards for each number and action
       UnoCard(
         symbol: CardSymbol.one,
         color: setColor,
@@ -225,6 +241,7 @@ class UnoDeck {
     ];
   }
 
+  // Method to convert the deck to a widget (representation of the last card)
   Widget toWidget() {
     if (cards.isNotEmpty) {
       return cards.last.toWidget();

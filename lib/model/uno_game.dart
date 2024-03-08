@@ -1,13 +1,14 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:uno_game/model/uno_card.dart';
 import 'package:uno_game/model/uno_deck.dart';
 import 'package:uno_game/model/uno_hand.dart';
 import 'package:uno_game/model/uno_player.dart';
 
+// Enum to represent the direction of turns in the game
 enum TurnDirection { clockwise, counterclockwise }
 
+// Class representing the Uno game
 class UnoGame {
   late int numberOfPlayers;
   late List<UnoPlayer> players;
@@ -18,8 +19,10 @@ class UnoGame {
   late TurnDirection turnDirection;
   late CardColor currentColor;
 
+  // Class representing the Uno game
   UnoGame({this.numberOfPlayers = 4});
 
+  // Prepare the game by setting up players, deck, etc.
   void prepareGame() {
     deck = UnoDeck();
     deck.setGame(this);
@@ -42,6 +45,7 @@ class UnoGame {
     calculateScores();
   }
 
+  // Play the next round of the game
   void playNextRound() {
     deck.prepareDeck();
     players.forEach((player) {
@@ -53,7 +57,7 @@ class UnoGame {
       hand.player = player;
       player.hand = hand;
     });
-    UnoCard firstCard = this.deck.drawCard();
+    UnoCard firstCard = deck.drawCard();
     firstCard.game = this;
     currentColor = firstCard.color;
     thrown.clear();
@@ -64,8 +68,10 @@ class UnoGame {
     calculateScores();
   }
 
+  // Get the current player
   UnoPlayer currentPlayer() => players[currentTurn];
 
+  // Get the color associated with the current play
   Color? getPlayingColor() {
     switch (currentColor) {
       case CardColor.blue:
@@ -82,11 +88,13 @@ class UnoGame {
     return Colors.white;
   }
 
+  // Check if a card can be played
   bool canPlayCard(UnoCard card) {
     UnoCard lastCard = currentCard();
     return (currentPlayer() == card.hand?.player) && lastCard.canAccept(card);
   }
 
+  // Play a card in the game
   bool playCard(UnoCard card) {
     print("${card.hand?.player?.name}: ${card.symbol}:${card.color}");
     if (canPlayCard(card)) {
@@ -101,6 +109,7 @@ class UnoGame {
     return false;
   }
 
+  // Set the color for the current play
   void setColor(CardColor color) {
     currentColor = color;
   }
@@ -109,6 +118,7 @@ class UnoGame {
     return currentColor == CardColor.colorless;
   }
 
+  // Perform the action associated with a card
   bool doCardAction(UnoCard card) {
     switch (card.action) {
       case CardAction.skipTurn:
@@ -167,10 +177,12 @@ class UnoGame {
     return true;
   }
 
+  // Get the current card in play
   UnoCard currentCard() {
     return thrown.last;
   }
 
+  // Set the next player in the game
   void setNextPlayer({int skip = 1}) {
     if (turnDirection == TurnDirection.clockwise) {
       currentTurn = ((currentTurn + skip) % numberOfPlayers).round();
@@ -180,6 +192,7 @@ class UnoGame {
     print("Current Turn: $currentTurn");
   }
 
+  // Switch the direction of turns
   void switchPlay() {
     if (turnDirection == TurnDirection.clockwise) {
       turnDirection = TurnDirection.counterclockwise;
@@ -188,6 +201,7 @@ class UnoGame {
     }
   }
 
+  // Perform a draw card action
   void drawCardAction() {
     UnoCard _card = deck.drawCard(hide: false);
     print("Cards in deck: ${deck.cards.length}");
@@ -195,17 +209,20 @@ class UnoGame {
     currentPlayer().hand.addCard(_card);
   }
 
+  // Draw a card from the deck
   void drawCardFromDeck() {
     print("${currentPlayer().name} is drawing a card.");
     drawCardAction();
     setNextPlayer();
   }
 
+  // Check if the game is over
   bool isGameOver() {
     winner = players.indexWhere((player) => player.hand.cards.isEmpty);
     return winner >= 0;
   }
 
+  // Play a turn in the game
   void playTurn(var state) {
     print("${currentPlayer().name}'s turn...");
     if (!isGameOver()) {
@@ -226,6 +243,7 @@ class UnoGame {
     }
   }
 
+  // Calculate scores for players
   void calculateScores() {
     players.map((player) => player.calculateScore());
   }
